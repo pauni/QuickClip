@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
-
+//NO CLUE WHAT THIS IS
 /**
  * Instrumentation test, which will execute on an Android device.
  *
