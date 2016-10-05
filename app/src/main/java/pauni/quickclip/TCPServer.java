@@ -31,7 +31,7 @@ public class TCPServer implements Runnable{
             PrintWriter out =
                     new PrintWriter(clientSocket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(
-                    new InputStreamReader(clientSocket.getInputStream()));
+                    new InputStreamReader(clientSocket.getInputStream()))
             ) {
         } catch (IOException e) {
             e.printStackTrace();
