@@ -53,22 +53,24 @@ public class MainActivity extends AppCompatActivity {
         tv_debug.setText(string);
     }
     void startServer(View v){
-        createNotification();
+        //create a testy notification
+        createNotification("Neue Zwischenablage", clip);
         Thread t1 = new Thread( new TCPServer());
         t1.start();
         debugInfo(lol);
     }
 
     String clip = "Ach wär das toll, wenn ich die Zwischenablage vom PC direkt auf mein Smartphone übertragen könnte";
-    void createNotification() {
+
+    //call this method with a String Title and Text to publish a Notification
+    void createNotification(String title, String text) {
 
         mBuilder = new NotificationCompat.Builder(this)
                         .setSmallIcon(R.mipmap.top)
-                        .setContentTitle("New clipboard from PC")
-                        .setContentText(clip);
+                        .setContentTitle(title)
+                        .setContentText(text);
 
         mNotifyMgr.notify(mNotificationId, mBuilder.build());
-
     }
     void updateNotification() {
         mBuilder.setContentText(clip);
