@@ -1,7 +1,5 @@
 package pauni.quickclip;
 
-import android.content.Intent;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -14,6 +12,7 @@ import java.net.Socket;
  * Created by Roni on 04.10.2016.
  */
 public class TCPServer implements Runnable{
+    public static MainActivity mainActivity = new MainActivity();
 
     @Override
     public void run() {
@@ -32,9 +31,12 @@ public class TCPServer implements Runnable{
                     new PrintWriter(clientSocket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(clientSocket.getInputStream()))
+            
             ) {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
     }
 }

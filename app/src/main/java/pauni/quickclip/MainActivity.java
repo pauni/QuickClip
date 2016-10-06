@@ -41,14 +41,13 @@ static String lol = null;
         clipboard.setPrimaryClip(clip);
     }
 
-    static void write(String string) {
+    public static void debugInfo(String string) {
         tv_debug.setText(string);
     }
     void startServer(View v){
         Thread t1 = new Thread( new TCPServer());
         t1.start();
-
-        write(lol);
+        debugInfo(lol);
     }
 
 
