@@ -1,6 +1,9 @@
 package pauni.quickclip;
 
+import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +13,10 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     //create all views (don't initialize them)
     static TextView tv_debug = null;
-static String lol = null;
+    static String lol = null;
+    int mNotificationId = 001;
+    NotificationManager mNotifyMgr;
+    NotificationCompat.Builder mBuilder;
 
     //onCreate is called at the start
     @Override
@@ -27,6 +33,8 @@ static String lol = null;
         //If you give a view on xml an ID, the ID is given a unique
         //integer which is saved in R.id.
         tv_debug = (TextView) findViewById(R.id.tV_debug);
+        mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
     }
 
     //pass a CharSequence as parameter which you would like to toast
@@ -45,10 +53,26 @@ static String lol = null;
         tv_debug.setText(string);
     }
     void startServer(View v){
+        createNotification();
         Thread t1 = new Thread( new TCPServer());
         t1.start();
         debugInfo(lol);
     }
 
+    String clip = "Ach wär das toll, wenn ich die Zwischenablage vom PC direkt auf mein Smartphone übertragen könnte";
+    void createNotification() {
+
+        mBuilder = new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.mipmap.top)
+                        .setContentTitle("New clipboard from PC")
+                        .setContentText(clip);
+
+        mNotifyMgr.notify(mNotificationId, mBuilder.build());
+
+    }
+    void updateNotification() {
+        mBuilder.setContentText(clip);
+        mNotifyMgr.notify(mNotificationId, mBuilder.build());
+    }
 
 }
