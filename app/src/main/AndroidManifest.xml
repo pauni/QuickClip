@@ -15,6 +15,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service android:name=".TCPServer"
+            android:exported="false"></service>
     </application>
-
+    <uses-sdk
+        android:maxSdkVersion="24"
+        android:minSdkVersion="21" />
 </manifest>

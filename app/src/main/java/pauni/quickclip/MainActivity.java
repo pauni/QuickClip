@@ -41,27 +41,26 @@ public class MainActivity extends AppCompatActivity {
     void toastThis (CharSequence charSeq) {
         Toast.makeText(getApplicationContext(), charSeq, Toast.LENGTH_SHORT);
     }
-
     void copyToClipboard(String cliptext) {
         android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         //"Copied Text" is not part of the cliptext. Just ignore it
         android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Text", cliptext);
         clipboard.setPrimaryClip(clip);
     }
-
     public static void debugInfo(String string) {
         tv_debug.setText(string);
     }
     void startServer(View v){
         //create a testy notification
+        Intent intent = new Intent(this, TCPServer.class);
+        startService(intent);
         createNotification("Neue Zwischenablage", clip);
-        Thread t1 = new Thread( new TCPServer());
-        t1.start();
+
         debugInfo(lol);
     }
 
-    String clip = "Ach wär das toll, wenn ich die Zwischenablage vom PC direkt auf mein Smartphone übertragen könnte";
-
+    String clip = "Ach wär das toll, wenn ich die Zwischenablage vom PC direkt" +
+            " auf mein Smartphone übertragen könnte";
     //call this method with a String Title and Text to publish a Notification
     void createNotification(String title, String text) {
 
