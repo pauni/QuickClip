@@ -37,16 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //pass a CharSequence as parameter which you would like to toast
-    //void toastThis (CharSequence charSeq) {
-     //   Toast.makeText(getApplicationContext(), charSeq, Toast.LENGTH_SHORT);
-   // }
-    public void setClipboard(String cliptext) {
-        android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        //"Copied Text" is not part of the cliptext. Just ignore it
-        android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Text", cliptext);
-        clipboard.setPrimaryClip(clip);
-    }
     public static void debugInfo(String string) {
         tv_debug.setText(string);
     }

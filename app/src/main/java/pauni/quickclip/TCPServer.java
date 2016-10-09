@@ -18,7 +18,6 @@ import java.net.Socket;
  * Created by Roni on 04.10.2016.
  */
 public class TCPServer extends IntentService {
-    private String clipboard;
     Handler mHandler;
     public TCPServer() {
         super("tcp_intent_thread");
@@ -40,17 +39,28 @@ public class TCPServer extends IntentService {
     }
     public class setClipboard implements Runnable {
         private final Context mContext;
-        String clip;
-        public setClipboard(Context mContext, String clip) {
+        String clipFromPC;
+
+        public setClipboard(Context mContext, String clipFromPC) {
+            //initializing both variables with the given params
             this.mContext = mContext;
-            this.clip = clip;
+            this.clipFromPC = clipFromPC;
         }
 
         public void run() {
-            clipboard = clip;
-            //only for test purpose
-            Toast.makeText(TCPServer.this, "Zwischenablage wurde geändert", Toast.LENGTH_LONG).show();
-            writeInClipboard(clipboard);
+            //inform the user that his clipboard has been updated
+            Toast.makeText(TCPServer.this, "clipboard updated", Toast.LENGTH_LONG).show();
+
+            //Create a clipboardManager
+            android.content.ClipboardManager clipboard =
+                    (android.content.ClipboardManager) getSystemService(
+                            Context.CLIPBOARD_SERVICE);
+            //create a new ClipData object using clipFromPC as it's text
+            android.content.ClipData clip =
+                    android.content.ClipData.newPlainText(
+                            "Copied Text", clipFromPC);
+            //write ClipData object into clipboard
+            clipboard.setPrimaryClip(clip);
         }
     }
 
@@ -64,6 +74,7 @@ public class TCPServer extends IntentService {
         Toast.makeText(TCPServer.this, "service stopped", Toast.LENGTH_SHORT).show();
         super.onDestroy();
     }
+
     @Override
     protected void onHandleIntent(Intent Intent) {
         //using try because to catch exceptions (e.g. port is used)
@@ -111,12 +122,5 @@ public class TCPServer extends IntentService {
                 e.printStackTrace();
             }
         }
-    }
-
-    public void writeInClipboard(String cliptext) {
-        android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        //"Copied Text" is not part of the cliptext. Just ignore it
-        android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Text", cliptext);
-        clipboard.setPrimaryClip(clip);
     }
 }
