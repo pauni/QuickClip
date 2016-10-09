@@ -18,7 +18,8 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/tV_debug"
-        android:textColor="@android:color/background_light" />
+        android:textColor="@android:color/background_light"
+        android:textSize="20sp" />
 
     <Button
         android:text="start server"
@@ -29,5 +30,6 @@
         android:backgroundTint="?attr/colorPrimary"
         android:layout_below="@+id/tV_debug"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="75dp" />
+        android:layout_marginTop="75dp"
+        android:textColor="@android:color/background_light" />
 </RelativeLayout>

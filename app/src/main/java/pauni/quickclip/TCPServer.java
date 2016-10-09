@@ -81,7 +81,6 @@ public class TCPServer extends IntentService {
         //create server- and client. Init client with serverSocket.accept()
         //this method waits until a client connects to server Socket and binds
         //address and port of the client to the client
-
         //creating a printwriter (writes to the outputstream of the client
         //creating an inputstreamreader (listens to client's inputstream
 
