@@ -8,22 +8,26 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="pauni.quickclip.MainActivity">
+    tools:context="pauni.quickclip.MainActivity"
+    android:background="@color/nicedark">
 
     <TextView
-        android:text="TextView"
+        android:text="Hier könnten wichtige\nDebuginfos stehen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/tV_debug" />
+        android:id="@+id/tV_debug"
+        android:textColor="@android:color/background_light" />
 
     <Button
-        android:text="Button"
+        android:text="start server"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:id="@+id/button"
-        android:onClick="startServer" />
+        android:onClick="startServer"
+        android:backgroundTint="?attr/colorPrimary"
+        android:layout_below="@+id/tV_debug"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="75dp" />
 </RelativeLayout>
