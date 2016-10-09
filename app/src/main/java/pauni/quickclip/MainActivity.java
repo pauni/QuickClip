@@ -55,9 +55,10 @@ public class MainActivity extends AppCompatActivity {
     void createNotification(String title, String text) {
 
         mBuilder = new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.mipmap.top)
-                        .setContentTitle(title)
-                        .setContentText(text);
+                    .setSmallIcon(R.mipmap.top)
+                    .setContentTitle(title)
+                    .setContentText(text)
+                    .setOngoing(true);
 
         mNotifyMgr.notify(mNotificationId, mBuilder.build());
     }
