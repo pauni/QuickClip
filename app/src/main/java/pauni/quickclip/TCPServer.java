@@ -1,9 +1,11 @@
 package pauni.quickclip;
 
 import android.app.IntentService;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -18,7 +20,11 @@ import java.net.Socket;
  * Created by Roni on 04.10.2016.
  */
 public class TCPServer extends IntentService {
+    NotificationCompat.Builder mBuilder;
+    int mNotificationId = 001;
+    NotificationManager mNotifyMgr;
     Handler mHandler;
+
     public TCPServer() {
         super("tcp_intent_thread");
         mHandler = new Handler();
@@ -61,6 +67,19 @@ public class TCPServer extends IntentService {
                             "Copied Text", clipFromPC);
             //write ClipData object into clipboard
             clipboard.setPrimaryClip(clip);
+
+
+            /*mBuilder = new NotificationCompat.Builder(TCPServer.this)
+                    .setSmallIcon(android.R.color.transparent)
+                    .setContentTitle("New clipboard")
+                    .setOngoing(true)
+                    .setContentText(clipFromPC);
+            mNotifyMgr.notify(mNotificationId, mBuilder.build());
+
+            mBuilder.setContentText(clipFromPC);
+            mNotifyMgr.notify(mNotificationId, mBuilder.build()); */
+
+
         }
     }
 
@@ -74,7 +93,6 @@ public class TCPServer extends IntentService {
         Toast.makeText(TCPServer.this, "service stopped", Toast.LENGTH_SHORT).show();
         super.onDestroy();
     }
-
     @Override
     protected void onHandleIntent(Intent Intent) {
         //using try because to catch exceptions (e.g. port is used)
@@ -84,7 +102,6 @@ public class TCPServer extends IntentService {
         //creating a printwriter (writes to the outputstream of the client
         //creating an inputstreamreader (listens to client's inputstream
 
-        while (true) {
             ServerSocket serverSocket = null;
             //connect serverSocket, toast the success/toast the failure
             try {
@@ -96,13 +113,14 @@ public class TCPServer extends IntentService {
             }
 
             Socket client = null;
+
+        while (true) {
             //wait for a client (.accept())
             try {
                 client = serverSocket.accept();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
             //create reader & writer(for further purposes), read from client
             //and write the input into clipboard
             try {
@@ -113,7 +131,6 @@ public class TCPServer extends IntentService {
             } catch (IOException e) {
                 mHandler.post(new DisplayToast(this, "Read failed"));
             }
-
             try {
                 serverSocket.close();
                 client.close();

@@ -1,6 +1,7 @@
 package pauni.quickclip;
 
 import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -42,20 +43,21 @@ public class MainActivity extends AppCompatActivity {
         //create a testy notification
         Intent intent = new Intent(this, TCPServer.class);
         startService(intent);
-        createNotification("Neue Zwischenablage", clip);
+        //createNotification("Neue Zwischenablage", clip);
 
         debugInfo(lol);
     }
 
     String clip = "Ach wär das toll, wenn ich die Zwischenablage vom PC direkt" +
-            " auf mein Smartphone übertragen könnte";
+            "auf mein Smartphone übertragen könnte";
     //call this method with a String Title and Text to publish a Notification
     void createNotification(String title, String text) {
 
         mBuilder = new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.mipmap.top)
-                        .setContentTitle(title)
-                        .setContentText(text);
+                .setSmallIcon(android.R.color.transparent)
+                .setContentTitle(title)
+                .setOngoing(true)
+                .setContentText(text);
 
         mNotifyMgr.notify(mNotificationId, mBuilder.build());
     }
@@ -63,5 +65,4 @@ public class MainActivity extends AppCompatActivity {
         mBuilder.setContentText(clip);
         mNotifyMgr.notify(mNotificationId, mBuilder.build());
     }
-
 }
