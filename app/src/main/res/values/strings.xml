@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Clipboard</string>
+
+    <string name="notificationTitle_german">Neue Zwischenablage</string>
+    <string name="notificationTitle_english">New clipboard</string>
+
+    <string name="toastClipChanged_german">Zwischenablage aktualisiert</string>
+    <string name="toastClipChanged_english">clipboard updated</string>
+
+    <string name="toastServerStarted_german">QuickClip ist aktiv</string>
+    <string name="toastServerStarted_english">QuickClip is active</string>
+
+    <string name="toastConnected_german">Verbindung erfolgreich</string>
+    <string name="toastConnected_english">connection successful</string>
 </resources>

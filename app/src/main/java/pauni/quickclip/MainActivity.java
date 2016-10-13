@@ -7,7 +7,11 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+
+import static pauni.quickclip.TCPServer.serverSocket;
+import static pauni.quickclip.TCPServer.setLanguage;
 
 public class MainActivity extends AppCompatActivity {
     //create all views (don't initialize them)
@@ -40,29 +44,47 @@ public class MainActivity extends AppCompatActivity {
         tv_debug.setText(string);
     }
     void startServer(View v){
-        //create a testy notification
+        //starting the background process (intentservice) the usual way #google
         Intent intent = new Intent(this, TCPServer.class);
         startService(intent);
-        //createNotification("Neue Zwischenablage", clip);
-
-        debugInfo(lol);
+        createNotification("Neue Zwischenablage", "testy notification");
+        //set run false to enable the while loop of onHandleIntent
+        TCPServer.setRun(true);
+    }
+    void stop (View v) {
+        //set run false to break the while loop of onHandleIntent
+        //wait until while(run) has finished
+        //pass the application-context to toasting
+        TCPServer.setRun(false);
+        TCPServer.stopServer(getApplication());
     }
 
-    String clip = "Ach wär das toll, wenn ich die Zwischenablage vom PC direkt" +
-            "auf mein Smartphone übertragen könnte";
-    //call this method with a String Title and Text to publish a Notification
     void createNotification(String title, String text) {
 
         mBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(android.R.color.transparent)
-                .setContentTitle(title)
-                .setOngoing(true)
-                .setContentText(text);
+                        .setSmallIcon(R.mipmap.top)
+                        .setContentTitle(title)
+                        .setContentText(text);
 
         mNotifyMgr.notify(mNotificationId, mBuilder.build());
     }
     void updateNotification() {
-        mBuilder.setContentText(clip);
+        mBuilder.setContentText("something");
         mNotifyMgr.notify(mNotificationId, mBuilder.build());
     }
+    void changeLanguage(View v) {
+        Context mContext = getApplicationContext();
+        Button button = (Button) findViewById(R.id.bt_setLanguage);
+        if (button.getText() == "DEUTSCH" ) {
+            TCPServer.initStrings("deutsch", mContext);
+            button.setText("ENGLISH");
+        }
+        else {
+            TCPServer.initStrings("english", mContext);
+            button.setText("DEUTSCH");
+        }
+    }
+
+
+
 }

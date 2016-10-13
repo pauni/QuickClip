@@ -12,7 +12,7 @@
     android:background="@color/nicedark">
 
     <TextView
-        android:text="Hier könnten wichtige\nDebuginfos stehen"
+        android:text="Infos:\n"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -31,5 +31,28 @@
         android:layout_below="@+id/tV_debug"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="75dp"
-        android:textColor="@android:color/background_light" />
+        android:textColor="@android:color/background_light"
+        android:minHeight="60dp"
+        android:minWidth="130dp" />
+
+    <Button
+        android:text="ENGLISH"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/bt_setLanguage"
+        android:onClick="changeLanguage" />
+
+    <Button
+        android:text="stop server"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="?android:attr/colorPrimaryDark"
+        android:textColor="@android:color/background_light"
+        android:minHeight="60dp"
+        android:minWidth="130dp"
+        android:layout_below="@+id/button"
+        android:layout_alignStart="@+id/button"
+        android:onClick="stop" />
 </RelativeLayout>
