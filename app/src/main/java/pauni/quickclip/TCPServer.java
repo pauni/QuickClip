@@ -178,7 +178,7 @@ public class TCPServer extends IntentService {
         }
     }
 
-    //method to change bool from ext. class
+    //method for changing bool from ext. class
     static void setRun(boolean bool) {
         run = bool;
     }
