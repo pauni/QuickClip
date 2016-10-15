@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Clipboard</string>
+    <string name="app_name">QuickClip</string>
 
     <string name="notificationTitle_german">Neue Zwischenablage</string>
     <string name="notificationTitle_english">New clipboard</string>
