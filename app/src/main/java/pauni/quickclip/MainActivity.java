@@ -8,15 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
-import static pauni.quickclip.TCPServer.serverSocket;
-import static pauni.quickclip.TCPServer.setLanguage;
-
 public class MainActivity extends AppCompatActivity {
-    //create all views (don't initialize them)
-    static TextView tv_debug = null;
-    static String lol = null;
+    TextView tv_debug = null;
+    EditText eT_password;
+
+    DoBeforeStarting dbs;
     int mNotificationId = 001;
     NotificationManager mNotifyMgr;
     NotificationCompat.Builder mBuilder;
@@ -28,22 +27,19 @@ public class MainActivity extends AppCompatActivity {
         //set the layout-xml-file which should be displayed
         setContentView(R.layout.activity_main);
 
-        //here you can initialize the views to make them available
-        //through the entire class
+        //init stuff here for class-wide access
+        tv_debug = (TextView) findViewById(R.id.tV_IPaddress);
+        eT_password = (EditText) findViewById(R.id.eT_code);
 
-        //Create the object variable, give it's type in brackets
-        //and use the findViewById method.
-        //If you give a view on xml an ID, the ID is given a unique
-        //integer which is saved in R.id.
-        tv_debug = (TextView) findViewById(R.id.tV_debug);
         mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
+        dbs = new DoBeforeStarting(this);
+        print(dbs.getLocalIpAddress());
     }
 
-    public static void debugInfo(String string) {
+    public void print(String string) {
         tv_debug.setText(string);
     }
-    void startServer(View v){
+    public void startServer(View v){
         //starting the background process (intentservice) the usual way #google
         Intent intent = new Intent(this, TCPServer.class);
         startService(intent);
@@ -58,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         TCPServer.setRun(false);
         TCPServer.stopServer(getApplication());
     }
-
     void createNotification(String title, String text) {
 
         mBuilder = new NotificationCompat.Builder(this)
@@ -84,7 +79,4 @@ public class MainActivity extends AppCompatActivity {
             button.setText("DEUTSCH");
         }
     }
-
-
-
 }

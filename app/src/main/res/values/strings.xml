@@ -11,5 +11,14 @@
     <string name="toastServerStarted_english">QuickClip is active</string>
 
     <string name="toastConnected_german">Verbindung erfolgreich</string>
-    <string name="toastConnected_english">connection successful</string>
+    <string name="toastConnected_english">connected</string>
+
+
+
+    <string name="codeHint_german">sechsstelliger Zahlencode</string>
+    <string name="codeHint_english">six digit number code</string>
+
+    <string name="explainIP_german">Deine lokale IP-Adresse: </string>
+    <string name="explainIP_english">Your local IP-address: </string>
+
 </resources>

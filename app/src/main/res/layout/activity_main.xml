@@ -11,30 +11,6 @@
     tools:context="pauni.quickclip.MainActivity"
     android:background="@color/nicedark">
 
-    <TextView
-        android:text="Infos:\n"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/tV_debug"
-        android:textColor="@android:color/background_light"
-        android:textSize="20sp" />
-
-    <Button
-        android:text="start server"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button"
-        android:onClick="startServer"
-        android:backgroundTint="?attr/colorPrimary"
-        android:layout_below="@+id/tV_debug"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="75dp"
-        android:textColor="@android:color/background_light"
-        android:minHeight="60dp"
-        android:minWidth="130dp" />
-
     <Button
         android:text="ENGLISH"
         android:layout_width="wrap_content"
@@ -55,4 +31,50 @@
         android:layout_below="@+id/button"
         android:layout_alignStart="@+id/button"
         android:onClick="stop" />
+
+    <Button
+        android:text="start server"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button"
+        android:onClick="startServer"
+        android:backgroundTint="?attr/colorPrimary"
+        android:textColor="@android:color/background_light"
+        android:minHeight="60dp"
+        android:minWidth="130dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="6"
+        android:id="@+id/eT_code"
+        android:textSize="20sp"
+        android:hint="@string/codeHint_english"
+        android:textColorHint="?android:attr/textColorHintInverse"
+        android:layout_above="@+id/button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="12dp" />
+
+    <TextView
+        android:text="@string/explainIP_english"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:textColor="@android:color/background_light"
+        android:textSize="16sp"
+        android:layout_below="@+id/bt_setLanguage"
+        android:layout_alignStart="@+id/eT_code" />
+
+    <TextView
+        android:text="IP address..."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tV_IPaddress"
+        android:textColor="@android:color/background_light"
+        android:textSize="20sp"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

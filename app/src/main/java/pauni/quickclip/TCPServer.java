@@ -147,7 +147,6 @@ public class TCPServer extends IntentService {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            //invert oneround to indicate another round is done
         }
     }
 
