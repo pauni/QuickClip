@@ -14,6 +14,8 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
     TextView tv_debug = null;
     EditText eT_password;
+    Button bt_start;
+    Button bt_stop;
 
     DoBeforeStarting dbs;
     int mNotificationId = 001;
@@ -30,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
         //init stuff here for class-wide access
         tv_debug = (TextView) findViewById(R.id.tV_IPaddress);
         eT_password = (EditText) findViewById(R.id.eT_code);
-
+        bt_start = (Button) findViewById(R.id.button);
+        bt_start = (Button) findViewById(R.id.bt_stopserver);
         mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         dbs = new DoBeforeStarting(this);
         print(dbs.getLocalIpAddress());
@@ -39,13 +42,15 @@ public class MainActivity extends AppCompatActivity {
     public void print(String string) {
         tv_debug.setText(string);
     }
-    public void startServer(View v){
+    public void startServer(View v) {
         //starting the background process (intentservice) the usual way #google
         Intent intent = new Intent(this, TCPServer.class);
         startService(intent);
         createNotification("Neue Zwischenablage", "testy notification");
         //set run false to enable the while loop of onHandleIntent
         TCPServer.setRun(true);
+        bt_stop.setEnabled(true);
+        bt_start.setEnabled(false);
     }
     void stop (View v) {
         //set run false to break the while loop of onHandleIntent
@@ -53,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
         //pass the application-context to toasting
         TCPServer.setRun(false);
         TCPServer.stopServer(getApplication());
+        bt_stop.setEnabled(false);
+        bt_start.setEnabled(true);
     }
     void createNotification(String title, String text) {
 
