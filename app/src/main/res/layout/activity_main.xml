@@ -31,7 +31,6 @@
         android:layout_below="@+id/button"
         android:layout_alignStart="@+id/button"
         android:onClick="stop"
-        android:enabled="false"
         android:id="@+id/bt_stopserver" />
 
     <Button
@@ -71,7 +70,7 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:text="@string/explainIP_english"
+        android:text="@string/tv_showIP_english"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView"

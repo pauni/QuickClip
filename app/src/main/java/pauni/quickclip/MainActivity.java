@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     EditText eT_password;
     Button bt_start;
     Button bt_stop;
+    Button bt_setLanguage;
 
     DoBeforeStarting dbs;
     int mNotificationId = 001;
@@ -37,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         dbs = new DoBeforeStarting(this);
         print(dbs.getLocalIpAddress());
+        bt_setLanguage  = (Button) findViewById(R.id.bt_setLanguage);
+        bt_setLanguage.performClick();
     }
 
     public void print(String string) {
@@ -49,8 +52,6 @@ public class MainActivity extends AppCompatActivity {
         createNotification("Neue Zwischenablage", "testy notification");
         //set run false to enable the while loop of onHandleIntent
         TCPServer.setRun(true);
-        bt_stop.setEnabled(true);
-        bt_start.setEnabled(false);
     }
     void stop (View v) {
         //set run false to break the while loop of onHandleIntent
@@ -58,9 +59,7 @@ public class MainActivity extends AppCompatActivity {
         //pass the application-context to toasting
         TCPServer.setRun(false);
         TCPServer.stopServer(getApplication());
-        bt_stop.setEnabled(false);
-        bt_start.setEnabled(true);
-    }
+        }
     void createNotification(String title, String text) {
 
         mBuilder = new NotificationCompat.Builder(this)

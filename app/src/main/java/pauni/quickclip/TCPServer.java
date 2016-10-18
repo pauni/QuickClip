@@ -6,12 +6,14 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.StringReader;
 import java.net.ServerSocket;
 import java.io.IOException;
 import java.net.Socket;
@@ -28,7 +30,7 @@ public class TCPServer extends IntentService {
     static String notificationTitle;
     static String serverStarted;
     static ServerSocket serverSocket = null;
-
+    static boolean updateClipboardNow = false;
     NotificationCompat.Builder mBuilder;
     NotificationManager mNotifyMgr;
     static Handler mHandler;
@@ -76,14 +78,13 @@ public class TCPServer extends IntentService {
             //write ClipData object into clipboard
             clipboard.setPrimaryClip(clip);
 
-
-                mBuilder = new NotificationCompat.Builder(TCPServer.this)
-                        .setSmallIcon(android.R.color.transparent)
-                        .setContentTitle(notificationTitle)
-                        .setOngoing(true)
-                        .setContentText(clipFromPC);
-                mNotifyMgr.notify(mNotificationId, mBuilder.build());
-
+            /*mBuilder =
+                    new NotificationCompat.Builder(TCPServer.this)
+                            .setSmallIcon(R.mipmap.ic_launcher) //android.R.color.transparent
+                            .setContentTitle(notificationTitle)
+                            .setOngoing(true)
+                            .setContentText(clipFromPC);
+            mNotifyMgr.notify(mNotificationId, mBuilder.build());*/
         }
     }
 
@@ -105,7 +106,7 @@ public class TCPServer extends IntentService {
         //address and port of the client to the client
         //creating a printwriter (writes to the outputstream of the client
         //creating an inputstreamreader (listens to client's inputstream
-
+        String outputLine;
             //connect serverSocket, toast the success/toast the failure
         try {
             serverSocket = new ServerSocket(6834);
@@ -115,11 +116,14 @@ public class TCPServer extends IntentService {
                     "failed to listen on port 6834"));
         }
 
-            Socket client = null;
-
+        Socket client = null;
+        QuickClipProtocol qcp = new QuickClipProtocol(TCPServer.this);
         while (run) {
             //Create a test connection every minute to inform user when QuickClip lost connection
             //wait for a client (.accept())
+            //all the if (!run) { break; } lines are clumsy, but I don't know other ways
+            //to address the issue, the "stop server" method invokes on a null-object
+            SystemClock.sleep(100);
             if (!run) { break; }
             try {
                 client = serverSocket.accept();
@@ -127,8 +131,8 @@ public class TCPServer extends IntentService {
                 e.printStackTrace();
             }
             if (!run) { break; }
-            //create reader & writer(for further purposes), read from client
-            //and write the input into clipboard
+            //create reader & writer, read from client, process input via QCProtocol
+            //reply to dekstop-client and write the input into clipboard, if PIN was correct
             try {
                 BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
                 if (!run) { break; }
@@ -136,7 +140,16 @@ public class TCPServer extends IntentService {
                 if (!run) { break; }
                 String input = in.readLine();
                 if (!run) { break; }
-                mHandler.post(new setClipboard(this, input));
+
+                //process the input
+                    outputLine = qcp.processInput(input);
+                    //reply to client
+                    out.println(outputLine);
+
+                if (updateClipboardNow) {
+                    mHandler.post(new setClipboard(this, qcp.clip));
+                }
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -183,5 +196,8 @@ public class TCPServer extends IntentService {
     }
     static void setLanguage(int lang) {
         language = lang;
+    }
+    static void setUpdateClipboardNow(boolean bool) {
+        updateClipboardNow = bool;
     }
 }
