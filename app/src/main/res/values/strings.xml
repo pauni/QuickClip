@@ -1,30 +1,11 @@
 <resources>
     <string name="app_name">QuickClip</string>
 
-<<<<<<< Updated upstream
     <string name="new_clipboard">New Clipboard</string>
     <string name="cliboard_refreshed">Clipboard refreshed</string>
     <string name="server_is_active">QuickClip is active</string>
-    <string name="connected_successfull">connection established successfull</string>
+    <string name="connected_successfull">connection established successful</string>
     <string name="pin_code">PIN-code</string>
     <string name="your_ip_address">Your IP address</string>
-=======
-    <string name="notificationTitle_german">Neue Zwischenablage</string>
-    <string name="notificationTitle_english">New clipboard</string>
 
-    <string name="toastClipChanged_german">Zwischenablage aktualisiert</string>
-    <string name="toastClipChanged_english">clipboard updated</string>
-
-    <string name="toastServerStarted_german">QuickClip ist aktiv</string>
-    <string name="toastServerStarted_english">QuickClip is active</string>
-
-    <string name="toastConnected_german">Verbindung erfolgreich</string>
-    <string name="toastConnected_english">connected</string>
-
-    <string name="codeHint_german">sechsstelliger Zahlencode</string>
-    <string name="codeHint_english">six digit number code</string>
-
-    <string name="tv_showIP_german">Deine lokale IPv4-Adresse: </string>
-    <string name="tv_showIP_english">Your local IPv4-address: </string>
->>>>>>> Stashed changes
 </resources>

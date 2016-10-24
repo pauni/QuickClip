@@ -4,15 +4,8 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
 
 import static pauni.quickclip.TCPServer.mHandler;
 
