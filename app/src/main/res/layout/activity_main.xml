@@ -53,11 +53,12 @@
         android:ems="6"
         android:id="@+id/eT_code"
         android:textSize="20sp"
-        android:hint="@string/codeHint_english"
+        android:hint="@string/pin_code"
         android:textColorHint="?android:attr/textColorHintInverse"
         android:layout_above="@+id/button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="12dp" />
+        android:layout_marginBottom="12dp"
+        android:layout_alignStart="@+id/textView"
+        android:layout_alignEnd="@+id/textView" />
 
     <TextView
         android:text="IP address..."
@@ -70,7 +71,7 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:text="@string/tv_showIP_english"
+        android:text="@string/your_ip_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView"

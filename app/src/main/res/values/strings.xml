@@ -6,5 +6,5 @@
     <string name="server_is_active">QuickClip is active</string>
     <string name="connected_successfull">connection established successfull</string>
     <string name="pin_code">PIN-code</string>
-    <string name="ip_address_of_your_pc">Ip Address of your PC</string>
+    <string name="your_ip_address">Your IP address</string>
 </resources>

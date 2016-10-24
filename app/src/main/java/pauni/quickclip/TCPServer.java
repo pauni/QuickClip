@@ -165,22 +165,10 @@ public class TCPServer extends IntentService {
 
 
     static void initStrings(String lang , Context context) {
-        switch (lang) {
-            case "english": //english
-                serverStarted = context.getString(R.string.toastServerStarted_english);
-                toastConnected = context.getString(R.string.toastConnected_english);
-                toastClipChanged = context.getString(R.string.toastClipChanged_english);
-                notificationTitle = context.getString(R.string.notificationTitle_english);
-                break;
-            case "deutsch": //german
-                serverStarted = context.getString(R.string.toastServerStarted_german);
-                toastConnected = context.getString(R.string.toastConnected_german);
-                toastClipChanged = context.getString(R.string.toastClipChanged_german);
-                notificationTitle = context. getString(R.string.notificationTitle_german);
-                break;
-            case "french": //coming soon
-                break;
-        }
+        serverStarted = context.getString(R.string.server_is_active);
+        toastConnected = context.getString(R.string.connected_successfull);
+        toastClipChanged = context.getString(R.string.cliboard_refreshed);
+        notificationTitle = context.getString(R.string.server_is_active);
     }
     static void stopServer(Context cont) {
         try {
