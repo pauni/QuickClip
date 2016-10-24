@@ -14,13 +14,13 @@ import java.util.Enumeration;
 
 import static android.content.Context.WIFI_SERVICE;
 
-/**
+/**a
  * Created by Roni on 11.10.2016.
  */
 
-public class DoBeforeStarting {
+public class DoBeforeStart {
     private Context mContext;
-    DoBeforeStarting(Context mContext) {
+    DoBeforeStart(Context mContext) {
         this.mContext = mContext;
     }
 
