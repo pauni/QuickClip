@@ -4,17 +4,7 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.widget.Toast;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
-
-import static pauni.quickclip.TCPServer.mHandler;
 
 /**
  * Created by Roni on 25.10.2016.
@@ -23,6 +13,9 @@ import static pauni.quickclip.TCPServer.mHandler;
 public class BackgroundService extends IntentService{
     TCPServer tcpServer;
     QuickClipProtocol quickClipProtocol;
+    Handler mHandler;
+    private static final int portNum = 6834;
+
 
     public BackgroundService() {
         super("tcp_intent_thread");
@@ -40,8 +33,10 @@ public class BackgroundService extends IntentService{
         while (true) {
             tcpServer.start();
             tcpServer.waitForClient();
-            inputLine = tcpServer.getInput();
+
+            inputLine = tcpServer.getInputLine();
             outputLine = quickClipProtocol.processInput(inputLine);
+
             tcpServer.send(outputLine);
         }
     }
@@ -84,7 +79,7 @@ public class BackgroundService extends IntentService{
 
         public void run() {
             //inform the user that his clipboard has been updated
-            Toast.makeText(BackgroundService.this, toastClipChanged, Toast.LENGTH_SHORT).show();
+            Toast.makeText(BackgroundService.this, "clip changed", Toast.LENGTH_SHORT).show();
 
             //Create a clipboardManager
             android.content.ClipboardManager clipboard =

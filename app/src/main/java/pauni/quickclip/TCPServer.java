@@ -23,25 +23,37 @@ import java.net.Socket;
  * Created by Roni on 04.10.2016.
  */
 public class TCPServer  {
-    ServerSocket server;
-    Socket client;
-    Handler mHandler;
-    BufferedReader in;
-    PrintWriter out;
-    int portNumb;
+    private ServerSocket server;
+    private Socket client;
+    private Handler mHandler;
+    private BufferedReader in;
+    private PrintWriter out;
+    private String inputLine;
+    private int portNumb;
 
-    public TCPServer(int portNumb) {
+
+
+    TCPServer (int portNumb) {
         //init the portNumb of the class with the param
         //create Handler...
         this.portNumb = portNumb;
         mHandler = new Handler();
     }
 
+
+
     void start() {
         try {
             server = new ServerSocket(portNumb);
         } catch (Exception e) { e.printStackTrace(); }
     }
+    void stop() {
+        try {
+            server.close();
+        } catch (Exception e) { e.printStackTrace(); }
+    }
+
+
     void waitForClient() {
         //firstly: get a client
         client = null;
@@ -57,21 +69,35 @@ public class TCPServer  {
             in = new BufferedReader(new InputStreamReader(client.getInputStream()));
             out = new PrintWriter(client.getOutputStream(), true);
         } catch (Exception e) { e.printStackTrace(); }
+
+        readStream();
     }
+    String readStream() {
+        inputLine = null;
+        try {
+             inputLine = in.readLine();
+        } catch (Exception e) { e.printStackTrace(); }
+
+        if (inputLine == null) { return "no input"; }
+        else return inputLine;
+    }
+
+
 
     //not ready yet, have to go to toilet!!!
-    String getInput() {
-        String input = null;
-        try {
-            input = in.readLine();
-        } catch (IOException e) { e.printStackTrace(); }
-
-        return input;
+    String getInputLine() {
+        return inputLine;
+    }
+    void send (String outputLine) {
+        out.println(outputLine);
     }
 
-    void stop() {
+
+    private void close() {
         try {
-            server.close();
+            client.close();
+            in.close();
+            out.close();
         } catch (IOException e) { e.printStackTrace();}
     }
 
