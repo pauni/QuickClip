@@ -50,6 +50,7 @@ public class TCPServer  {
     void stop() {
         try {
             server.close();
+
         } catch (Exception e) { e.printStackTrace(); }
     }
 
@@ -78,8 +79,15 @@ public class TCPServer  {
              inputLine = in.readLine();
         } catch (Exception e) { e.printStackTrace(); }
 
-        if (inputLine == null) { return "no input"; }
-        else return inputLine;
+        if (inputLine == null) {
+            close();
+            return "no input";
+        }
+        else {
+            close();
+            return inputLine;
+        }
+
     }
 
 

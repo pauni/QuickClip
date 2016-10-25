@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <service
-            android:name="pauni.quickclip.TCPServer"
+            android:name="pauni.quickclip.BackgroundService"
             android:exported="false">
         </service>
     </application>
