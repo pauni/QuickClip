@@ -4,8 +4,15 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 import static pauni.quickclip.TCPServer.mHandler;
 
@@ -22,6 +29,34 @@ public class BackgroundService extends IntentService{
         mHandler = new Handler();
         tcpServer = new TCPServer(portNum);
         quickClipProtocol = new QuickClipProtocol(BackgroundService.this);
+    }
+
+
+    @Override
+    protected void onHandleIntent(Intent Intent) {
+        String inputLine;
+        String outputLine;
+
+        while (true) {
+            tcpServer.start();
+            tcpServer.waitForClient();
+            inputLine = tcpServer.getInput();
+            outputLine = quickClipProtocol.processInput(inputLine);
+            tcpServer.send(outputLine);
+        }
+    }
+
+
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        super.onStartCommand(intent, flags, startId);
+        return START_STICKY;
+    }
+    @Override
+    public void onDestroy() {
+        Toast.makeText(BackgroundService.this, "service stopped", Toast.LENGTH_SHORT).show();
+        super.onDestroy();
     }
 
     public class DisplayToast implements Runnable {
@@ -70,33 +105,5 @@ public class BackgroundService extends IntentService{
                             .setContentText(clipFromPC);
             mNotifyMgr.notify(mNotificationId, mBuilder.build());*/
         }
-    }
-
-
-
-    @Override
-    protected void onHandleIntent(Intent Intent) {
-        String inputLine;
-        String outputLine;
-        while (true) {
-            tcpServer.waitForClient();
-
-            inputLine = tcpServer.getInput();
-            outputLine = quickClipProtocol.processInput(inputLine);
-            tcpServer.send(outputLine);
-        }
-    }
-
-
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        super.onStartCommand(intent, flags, startId);
-        return START_STICKY;
-    }
-    @Override
-    public void onDestroy() {
-        Toast.makeText(BackgroundService.this, "service stopped", Toast.LENGTH_SHORT).show();
-        super.onDestroy();
     }
 }
