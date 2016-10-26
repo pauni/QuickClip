@@ -23,5 +23,9 @@
             android:name="pauni.quickclip.BackgroundService"
             android:exported="false">
         </service>
+        <service
+            android:name="pauni.quickclip.SetClipboard"
+            android:exported="false">
+        </service>
     </application>
 </manifest>

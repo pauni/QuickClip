@@ -13,7 +13,7 @@ import java.util.Objects;
 public class QuickClipProtocol {
     private  EditText et;
     static int pinCodePhone;
-    String clip = null;
+    static String clip = "leeres Klippbort ^__^";
 
     QuickClipProtocol() {
     }
@@ -42,7 +42,7 @@ public class QuickClipProtocol {
         return output;
     }
 
-    String getClip() {
+    static String getClip() {
         return clip;
     }
     private boolean passwordCorrect(int pinCodePC) {

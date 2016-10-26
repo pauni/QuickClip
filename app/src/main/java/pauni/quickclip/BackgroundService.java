@@ -2,6 +2,7 @@ package pauni.quickclip;
 
 import android.app.IntentService;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
@@ -13,6 +14,7 @@ import android.widget.Toast;
  */
 
 public class BackgroundService extends IntentService{
+    public static int NEWCLIP_ID = 111;
     TCPServer tcpServer;
     Handler mHandler;
     Context context;
@@ -28,6 +30,7 @@ public class BackgroundService extends IntentService{
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        mHandler.post(new DisplayToast(BackgroundService.this, getString(R.string.server_is_active)));
         QuickClipProtocol quickClipProtocol = new QuickClipProtocol();
         String inputLine;
         String outputLine;
@@ -40,9 +43,15 @@ public class BackgroundService extends IntentService{
             outputLine = quickClipProtocol.processInput(inputLine);
             tcpServer.send(outputLine);*/
 
-            String clipComputer = "blablabla";
+            String clipComputer = QuickClipProtocol.getClip();
             if (clipComputer/* = quickClipProtocol.getClip())*/ != null) {
-                createNotification("Clipboard from PC", clipComputer);
+                //params are: Context, Title, Text.
+                CreateNotification mNotification = new CreateNotification(getApplicationContext(),
+                        getString(R.string.new_clipboard), clipComputer);
+                mNotification.addIcon(R.mipmap.ic_launcher);
+                mNotification.addButton(R.drawable.ic_content_copy_black_36dp,
+                        getString(R.string.copy), SetClipboard.class);
+                mNotification.publish(NEWCLIP_ID);
             }
        // }
 
@@ -56,7 +65,7 @@ public class BackgroundService extends IntentService{
     }
     @Override
     public void onDestroy() {
-        //Toast.makeText(BackgroundService.this, "service stopped", Toast.LENGTH_SHORT).show();
+        Toast.makeText(BackgroundService.this, "service stopped", Toast.LENGTH_SHORT).show();
         super.onDestroy();
     }
 
@@ -73,50 +82,6 @@ public class BackgroundService extends IntentService{
 
         public void run(){
             Toast.makeText(mContext, mText, Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void createNotification(String title, String text) {
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle(title)
-                .setContentText(text)
-                .addAction()
-
-        NotificationManager mNotifyMgr = (NotificationManager)
-                getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotifyMgr.notify(111, mBuilder.build());
-    }
-
-
-
-
-
-    public class setClipboard implements Runnable {
-        private final Context mContext;
-        String clipFromPC;
-
-        setClipboard(Context mContext, String clipFromPC) {
-            //initializing both variables with the given params
-            this.mContext = mContext;
-            this.clipFromPC = clipFromPC;
-        }
-
-        public void run() {
-            //inform the user that his clipboard has been updated
-            Toast.makeText(BackgroundService.this, "clip changed", Toast.LENGTH_SHORT).show();
-
-            //Create a clipboardManager
-            android.content.ClipboardManager clipboard =
-                    (android.content.ClipboardManager) getSystemService(
-                            Context.CLIPBOARD_SERVICE);
-            //create a new ClipData object using clipFromPC as it's text
-            android.content.ClipData clip =
-                    android.content.ClipData.newPlainText(
-                            "Copied Text", clipFromPC);
-            //write ClipData object into clipboard
-            clipboard.setPrimaryClip(clip);
         }
     }
 

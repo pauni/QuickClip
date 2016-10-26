@@ -53,8 +53,7 @@ public class MainActivity extends AppCompatActivity {
         this.startService(intent);
     }
     void stop (View v) {
-
-        //BackgroundService.setRun(false);
+        BackgroundService.setRun(false);
     }
     Context getContext() {
         return context;

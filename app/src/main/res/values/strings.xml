@@ -2,10 +2,12 @@
     <string name="app_name">QuickClip</string>
 
     <string name="new_clipboard">New Clipboard</string>
-    <string name="cliboard_refreshed">Clipboard refreshed</string>
+    <string name="clipboard_refreshed">Clipboard refreshed</string>
     <string name="server_is_active">QuickClip is active</string>
-    <string name="connected_successfull">connection established successful</string>
+    <string name="connected_successful">connection established successful</string>
     <string name="pin_code">PIN-code</string>
     <string name="your_ip_address">Your IP address</string>
+    <string name="copy">copy</string>
+
 
 </resources>
