@@ -1,10 +1,7 @@
 package pauni.quickclip;
 
-import android.content.Context;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import java.util.Objects;
 
 /**
  * Created by Roni on 14.10.2016.
@@ -15,7 +12,7 @@ import java.util.Objects;
 class QuickClipProtocol {
     private  EditText et;
     private static int pinCodePhone;
-    private static String clip = "leeres Klippbort ^__^";
+    private static String clip = "http://www.wikipedia.org";
 
     QuickClipProtocol() {
     }

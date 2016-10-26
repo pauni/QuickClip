@@ -16,9 +16,7 @@ import android.widget.Toast;
 public class SetClipboard extends Service{
 
     @Override
-    public void onCreate() {
-
-    }
+    public void onCreate() {    }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {

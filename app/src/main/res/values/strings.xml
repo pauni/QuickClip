@@ -8,6 +8,7 @@
     <string name="pin_code">PIN-code</string>
     <string name="your_ip_address">Your IP address</string>
     <string name="copy">copy</string>
+    <string name="open">open</string>
 
 
 </resources>

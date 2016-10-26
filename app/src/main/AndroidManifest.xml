@@ -27,5 +27,9 @@
             android:name="pauni.quickclip.SetClipboard"
             android:exported="false">
         </service>
+        <service
+            android:name="pauni.quickclip.OpenURL"
+            android:exported="false">
+        </service>
     </application>
 </manifest>

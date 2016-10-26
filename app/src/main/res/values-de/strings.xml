@@ -1,12 +1,13 @@
 <resources>
     <string name="app_name">QuickClip</string>
 
-    <string name="new_clipboard">Neue Clipboard</string>
+    <string name="new_clipboard">Neue Zwischenablage</string>
     <string name="clipboard_refreshed">Clipboard aktualisiert</string>
     <string name="server_is_active">QuickClip ist aktiv</string>
     <string name="connected_successful">Verbindung erfolgreich</string>
     <string name="pin_code">Sechstelliger Zahlencode</string>
     <string name="your_ip_address">Deine IP Adress:</string>
     <string name="copy">kopieren</string>
+    <string name="open">öffnen</string>
 
 </resources>

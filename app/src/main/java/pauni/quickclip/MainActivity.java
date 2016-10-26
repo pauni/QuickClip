@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -25,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //set the layout-xml-file which should be displayed
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         //init stuff here for class-wide access
         tv_debug = (TextView) findViewById(R.id.tV_IPaddress);
@@ -37,7 +41,11 @@ public class MainActivity extends AppCompatActivity {
             QuickClipProtocol.setPinCode(Integer.parseInt(pincode));
         }
     }
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
     public void print(String string) {
         tv_debug.setText(string);
     }
