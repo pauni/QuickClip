@@ -8,12 +8,14 @@ import java.util.Objects;
 
 /**
  * Created by Roni on 14.10.2016.
+ * Very small protocol to handle the processing of the input
+ * externally and return proper output
  */
 
-public class QuickClipProtocol {
+class QuickClipProtocol {
     private  EditText et;
-    static int pinCodePhone;
-    static String clip = "leeres Klippbort ^__^";
+    private static int pinCodePhone;
+    private static String clip = "leeres Klippbort ^__^";
 
     QuickClipProtocol() {
     }

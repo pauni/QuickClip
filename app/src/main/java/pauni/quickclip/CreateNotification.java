@@ -9,11 +9,12 @@ import android.support.v4.app.NotificationCompat;
 
 /**
  * Created by Roni on 26.10.2016.
+ * simplified way to create notifications...
+ * fewer lines to write and imo quicker
  */
 
-public class CreateNotification {
+class CreateNotification {
     private NotificationCompat.Builder mBuilder;
-    private NotificationManager mNotifyMgr;
     private Context mContext;
 
     //setting the attributes of a notification
@@ -42,7 +43,7 @@ public class CreateNotification {
     }
 
     void publish(int ID) {
-        mNotifyMgr = (NotificationManager)
+        NotificationManager mNotifyMgr = (NotificationManager)
                 mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         mNotifyMgr.notify(ID, mBuilder.build());
 

@@ -18,7 +18,7 @@ import static android.content.Context.WIFI_SERVICE;
  * Created by Roni on 11.10.2016.
  */
 
-public class DoBeforeStart {
+class DoBeforeStart {
     private Context mContext;
     DoBeforeStart(Context mContext) {
         this.mContext = mContext;
@@ -62,10 +62,5 @@ public class DoBeforeStart {
         }
 
         return ipAddressString;
-    }
-
-    boolean permissionsGranted() {
-        //ensure that required permissions are given
-        return true;
     }
 }

@@ -5,18 +5,19 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
 import android.widget.Toast;
 
 /**
  * Created by Roni on 26.10.2016.
+ * Service class for updating the clipboard of the phone
+ * required to be a service, as called by notificaion action
  */
 
 public class SetClipboard extends Service{
 
     @Override
     public void onCreate() {
-        ;
+
     }
 
     @Override

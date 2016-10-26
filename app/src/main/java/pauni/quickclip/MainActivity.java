@@ -1,16 +1,11 @@
 package pauni.quickclip;
 
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -52,10 +47,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, BackgroundService.class);
         this.startService(intent);
     }
-    void stop (View v) {
+
+    public void stopServer (View v1) {
         BackgroundService.setRun(false);
-    }
-    Context getContext() {
-        return context;
     }
 }

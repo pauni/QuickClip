@@ -1,16 +1,15 @@
 package pauni.quickclip;
 
 import android.app.IntentService;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
-import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
 /**
  * Created by Roni on 25.10.2016.
+ * running until manually stopped and listening for connections
+ * to recieve clips from PC
  */
 
 public class BackgroundService extends IntentService{
@@ -31,11 +30,11 @@ public class BackgroundService extends IntentService{
     @Override
     protected void onHandleIntent(Intent intent) {
         mHandler.post(new DisplayToast(BackgroundService.this, getString(R.string.server_is_active)));
-        QuickClipProtocol quickClipProtocol = new QuickClipProtocol();
+        /*QuickClipProtocol quickClipProtocol = new QuickClipProtocol();
         String inputLine;
         String outputLine;
 
-        /*mHandler.post(new DisplayToast(this, "server is running"));
+        mHandler.post(new DisplayToast(this, "server is running"));
         while (run) {
             tcpServer.start();
             tcpServer.waitForClient();
@@ -75,7 +74,7 @@ public class BackgroundService extends IntentService{
         private final Context mContext;
         String mText;
 
-        public DisplayToast(Context mContext, String text){
+        private DisplayToast(Context mContext, String text){
             this.mContext = mContext;
             mText = text;
         }
