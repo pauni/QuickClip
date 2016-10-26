@@ -12,7 +12,7 @@ import android.widget.EditText;
 class QuickClipProtocol {
     private  EditText et;
     private static int pinCodePhone;
-    private static String clip = "http://www.wikipedia.org";
+    private static String clip = "http://wikipedia.org";
 
     QuickClipProtocol() {
     }

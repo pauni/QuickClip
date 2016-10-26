@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 /**
  * Created by Roni on 27.10.2016.
+ * Service to open URL.
+ * Accessed by notification action via pendingintent
  */
 
 public class OpenURL extends Service {
