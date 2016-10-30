@@ -11,13 +11,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.Objects;
-
 public class MainActivity extends AppCompatActivity {
+    static String pinCodePhone;
     TextView tv_debug = null;
-    EditText eT_password;
-    DoBeforeStart dbs;
-
+    EditText eT_pincode;
+    WLANInfo wlanInfo;
     Context context;
 
     //onCreate is called at the start
@@ -32,31 +30,28 @@ public class MainActivity extends AppCompatActivity {
 
         //init stuff here for class-wide access
         tv_debug = (TextView) findViewById(R.id.tV_IPaddress);
-        eT_password = (EditText) findViewById(R.id.eT_code);
-        dbs = new DoBeforeStart(this);
-        print(dbs.getLocalIpAddress());
+        eT_pincode = (EditText) findViewById(R.id.eT_code);
+        wlanInfo = new WLANInfo(this);
+        print(wlanInfo.getIpAddress());
         context = this;
-        String pincode;
-        if (!Objects.equals( (pincode = eT_password.getText().toString()), "" )) {
-            QuickClipProtocol.setPinCode(Integer.parseInt(pincode));
-        }
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+
     public void print(String string) {
         tv_debug.setText(string);
     }
 
     public void startServer(View v) {
         //starting the background process (intentservice) the usual way #google
-        Intent intent = new Intent(this, BackgroundService.class);
+        setPinCodePhone(eT_pincode.getText().toString());
+        Intent intent = new Intent(this, WaitForPcClip.class);
         this.startService(intent);
     }
 
     public void stopServer (View v1) {
-        BackgroundService.setRun(false);
+        WaitForPcClip.setRun(false);
+    }
+
+    private void setPinCodePhone(String string) {
+        pinCodePhone = string;
     }
 }

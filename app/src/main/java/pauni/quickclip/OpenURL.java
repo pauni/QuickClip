@@ -24,7 +24,7 @@ public class OpenURL extends Service {
         //closing the notification
         NotificationManager mNotifyMgr = (NotificationManager)
                 getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotifyMgr.cancel(BackgroundService.NEWCLIP_ID);
+        mNotifyMgr.cancel(WaitForPcClip.NEWCLIP_ID);
         stopSelf();
         return Service.START_STICKY;
     }

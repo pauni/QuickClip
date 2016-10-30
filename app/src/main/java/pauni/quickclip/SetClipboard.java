@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 /**
  * Created by Roni on 26.10.2016.
- * Service class for updating the clipboard of the phone
+ * Background service, waiting for a tcp-connection to
  * required to be a service, as called by notificaion action
  */
 
@@ -37,7 +37,7 @@ public class SetClipboard extends Service{
 
         NotificationManager mNotifyMgr = (NotificationManager)
                 getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotifyMgr.cancel(BackgroundService.NEWCLIP_ID);
+        mNotifyMgr.cancel(WaitForPcClip.NEWCLIP_ID);
         stopSelf();
         return Service.START_STICKY;
     }

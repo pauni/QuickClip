@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <service
-            android:name="pauni.quickclip.BackgroundService"
+            android:name="pauni.quickclip.WaitForPcClip"
             android:exported="false">
         </service>
         <service
@@ -29,6 +29,10 @@
         </service>
         <service
             android:name="pauni.quickclip.OpenURL"
+            android:exported="false">
+        </service>
+     <service
+            android:name="pauni.quickclip.ClipboardSender"
             android:exported="false">
         </service>
     </application>

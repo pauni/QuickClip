@@ -35,8 +35,12 @@ class CreateNotification {
     void setLargeIcon(Bitmap bitmap) {
         mBuilder.setLargeIcon(bitmap);
     }
-    void setColor (int color) {
-        mBuilder.setColor(color);
+    void setColor (int colorResource) {
+        //setColor requires getResources().getColor(R.id.xxx).
+        //To simplify it, you just pass "R.id.xxx", the rest is handled
+        //by the method itself
+        int argb = mContext.getResources().getColor(colorResource);
+        mBuilder.setColor(argb);
     }
     //adding an action, here called Button
     //Action needs to be a class extending Broadcast, Service or Activity
@@ -44,9 +48,9 @@ class CreateNotification {
         //Creating an intent and pendingintent, just as required by android standards...
         Intent intent = new Intent(mContext, mClass);
         PendingIntent pendingIntent = PendingIntent.getService(
-                mContext, BackgroundService.FLAG, intent, PendingIntent.FLAG_ONE_SHOT);
+                mContext, WaitForPcClip.FLAG, intent, PendingIntent.FLAG_ONE_SHOT);
 
-        BackgroundService.FLAG++;
+        WaitForPcClip.FLAG++;
         mBuilder.addAction(buttonIcon, buttonText, pendingIntent);
     }
 

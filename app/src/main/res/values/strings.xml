@@ -6,9 +6,11 @@
     <string name="server_is_active">QuickClip is active</string>
     <string name="connected_successful">connection established successful</string>
     <string name="pin_code">PIN-code</string>
-    <string name="your_ip_address">Your IP address</string>
+    <string name="your_ip_address">Your IP address:</string>
     <string name="copy">copy</string>
     <string name="open">open</string>
+    <string name="stop_quickclip">stop QuickClip</string>
+    <string name="toggle_notification">Accept incoming clipboards via notifications instead of overwriting directly</string>
 
 
 </resources>

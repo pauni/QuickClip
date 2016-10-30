@@ -16,11 +16,13 @@ import static android.content.Context.WIFI_SERVICE;
 
 /**a
  * Created by Roni on 11.10.2016.
+ * This class is supposed to be removed and the functions shall be transferred
+ * into the mainactivity.java
  */
 
-class DoBeforeStart {
+class WLANInfo {
     private Context mContext;
-    DoBeforeStart(Context mContext) {
+    WLANInfo(Context mContext) {
         this.mContext = mContext;
     }
 
@@ -42,7 +44,7 @@ class DoBeforeStart {
         }
     }
 
-    String getLocalIpAddress(){
+    String getIpAddress(){
         WifiManager wifiManager = (WifiManager) mContext.getSystemService(WIFI_SERVICE);
         int ipAddress = wifiManager.getConnectionInfo().getIpAddress();
 

@@ -25,7 +25,6 @@ import java.net.Socket;
 public class TCPServer  {
     private ServerSocket server;
     private Socket client;
-    private Handler mHandler;
     private BufferedReader in;
     private PrintWriter out;
     private String inputLine;
@@ -37,7 +36,6 @@ public class TCPServer  {
         //init the portNumb of the class with the param
         //create Handler...
         this.portNumb = portNumb;
-        mHandler = new Handler();
     }
 
 
@@ -58,12 +56,16 @@ public class TCPServer  {
     void waitForClient() {
         //firstly: get a client
         client = null;
-        while (client == null) {
+        while (client == null && WaitForPcClip.run) {
             SystemClock.sleep(100);
             try {
                 client = server.accept();
             } catch (IOException e) { e.printStackTrace(); }
         }
+
+        //after client has connected, IP is given  to the ClipboardSender class, so that
+        //the client knows under which IP the server will be available
+        ClipboardSender.setServerAddress(client.getInetAddress().toString());
 
         //secondly: put a Reader and Writer onto the newly connected client
         try {
