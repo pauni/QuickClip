@@ -3,6 +3,18 @@
     <color name="colorPrimary">#009d5e</color>
     <color name="colorPrimaryDark">#00673e</color>
     <color name="colorAccent">#e3028383</color>
+
     <color name="nicedark">#f2f2f2</color>
-    <color name="red">#df2323</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="red">#d14141</color>
+    <color name="red_bright">#75ff3939</color>
+    <color name="green">#56c659</color>
+
+    <color name="fontColor">#424242</color>
+    <color name="devider_dark">#bfbfbf</color>
+    <color name="ListView_background">#e6e6e6</color>
+    <color name="gehtsnoch">#242424</color>
+    <color name="gehtsnochhell">#5d5d5d</color>
+    <color name="transparent">#00000000</color>
 </resources>

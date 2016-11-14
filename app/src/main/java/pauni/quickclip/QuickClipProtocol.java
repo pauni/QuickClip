@@ -1,6 +1,8 @@
 package pauni.quickclip;
 
-import android.widget.EditText;
+import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.util.Objects;
 
@@ -12,38 +14,37 @@ import java.util.Objects;
  */
 
 class QuickClipProtocol {
-    private  EditText et;
-    private static int pinCodePhone;
+    static String computerClip;
     private static String clip = "";
     private final String CLIPBOARD_FLAG = "CB";
     private final String AUTHENTICATION_REQUEST_FLAG = "AR";
-
-    QuickClipProtocol() {
-
-
-        String pincode;
-        if ( !Objects.equals((pincode = MainActivity.pinCodePhone), "") ) {
-            pinCodePhone = Integer.parseInt(pincode);
-        }
+    Context context;
+    QuickClipProtocol(Context context) {
+        this.context = context;
     }
 
     String processInput(String inputLine) {
-        String tag = inputLine.substring(0, 2);
+        String tag = inputLine.substring(0, 2);//flag(0-1)
         String output = null;
-        int pinCodePC;
+        String pinCodePC;
 
         switch (tag) {
             case AUTHENTICATION_REQUEST_FLAG: //AuthenticationRequest
-                pinCodePC = Integer.parseInt(inputLine.substring(2)); //input only contains flag(0-1) and password(2-5)
+                pinCodePC = inputLine.substring(2); //input only contains flag(0-1) and password(2-5)
                 output = (pinCodeCorrect(pinCodePC)) ? "ARok" : "ARnotok"; //ternary operator
                 break;
-            case CLIPBOARD_FLAG: //Clipboard
-                clip = inputLine.substring(7);
-                pinCodePC = Integer.parseInt(inputLine.substring(2, 6)); //input contains flag(0-1), password(2-5) and clipboard.
+            case CLIPBOARD_FLAG: //incoming clipboard
+                clip = inputLine.substring(8); //clipboard (8+)
+                pinCodePC = (inputLine.substring(2, 8)); //password(2-7)
+                Log.d("CB", pinCodePC);
+                Log.d("CB", inputLine);
                 if (pinCodeCorrect(pinCodePC)) {
+                    Log.d("CB", pinCodePC);
+                    computerClip = clip;
                     output = "CBok";
                 }
                 else {
+                    Log.d("TEST", "PASSED");
                     output = "CBnotok";
                 }
                 break;
@@ -53,14 +54,11 @@ class QuickClipProtocol {
 
     String sendClip(String clip) {
         //returning String in format required by QuickClipProtocol
-        return CLIPBOARD_FLAG + pinCodePhone + clip;
+        return CLIPBOARD_FLAG + MainActivity.pinCodePhone + clip;
 
     }
-
-    static String getClip() {
-        return clip;
-    }
-    private boolean pinCodeCorrect(int pinCodePC) {
-       return (pinCodePhone == pinCodePC);
+    static String getComputerClip() { return computerClip; }
+    private boolean pinCodeCorrect(String pinCodePC) {
+       return (Objects.equals(MainActivity.pinCodePhone, pinCodePC));
     }
 }

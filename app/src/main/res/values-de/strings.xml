@@ -2,15 +2,24 @@
     <string name="app_name">QuickClip</string>
 
     <string name="new_clipboard">Neue Zwischenablage</string>
-    <string name="clipboard_refreshed">Clipboard aktualisiert</string>
+    <string name="copied">kopiert</string>
     <string name="server_is_active">QuickClip ist aktiv</string>
     <string name="connected_successful">Verbindung erfolgreich</string>
     <string name="pin_code">PIN-Code</string>
-    <string name="your_ip_address">Deine IP Adress:</string>
+    <string name="ip4_address">IP4 Adresse:</string>
+    <string name="no_network">Wlan-Verbindung erforderlich</string>
+
+    <string name="no_record">NOCH KEINE ZWISCHENABLAGEN GESPEICHERT \n ZUKÜNFTIGE ZWISCHENABLAGEN WERDEN HIER GELISTET WERDEN</string>
+
     <string name="copy">kopieren</string>
     <string name="open">öffnen</string>
+
+    <string name="on">aktiv</string>
+    <string name="off">aus</string>
+
     <string name="stop_quickclip">QuickClip beenden</string>
-    <string name="toggle_notification">Zwischenablage über eine Benachrichtigung annehmen, anstatt sie direkt zu überschreiben
-    </string>
+    <string name="toggle_notification">Benachrichtigung aktivieren</string>
+    <string name="notification_enabled">Zwischenablage über eine Benachrichtigung annehmen</string>
+    <string name="notification_disabled">Zwischenablage sofort überschreiben</string>
 
 </resources>

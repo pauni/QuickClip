@@ -2,15 +2,25 @@
     <string name="app_name">QuickClip</string>
 
     <string name="new_clipboard">New Clipboard</string>
-    <string name="clipboard_refreshed">Clipboard refreshed</string>
+    <string name="copied">copied</string>
     <string name="server_is_active">QuickClip is active</string>
     <string name="connected_successful">connection established successful</string>
     <string name="pin_code">PIN-code</string>
-    <string name="your_ip_address">Your IP address:</string>
+    <string name="ip4_address">IP4 address:</string>
+    <string name="no_network">network required</string>
+
+    <string name="no_record">NO CLIPBOARDS SAVED YET \n YOUR FUTURE CLIPBOARDS WILL BE LISTED HERE</string>
+
+
     <string name="copy">copy</string>
     <string name="open">open</string>
-    <string name="stop_quickclip">stop QuickClip</string>
-    <string name="toggle_notification">Accept incoming clipboards via notifications instead of overwriting directly</string>
+
+    <string name="on">active</string>
+    <string name="off">off</string>
+
+    <string name="toggle_notification">Enable notification</string>
+    <string name="notification_enabled">Accept incoming clipboards via notifications</string>
+    <string name="notification_disabled">Phone\'s clipboard will be overwritten directly</string>
 
 
 </resources>

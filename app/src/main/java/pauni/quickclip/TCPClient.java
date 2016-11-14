@@ -11,22 +11,30 @@ import java.net.Socket;
  * accessed when user copies something on the phone
  */
 
-public class TCPClient {
-    Socket client;
-    PrintWriter out;
+class TCPClient {
+    private Socket client;
+    private PrintWriter out;
 
-    TCPClient(String address, int port) {
-        try {
-            client = new Socket(address, port);
-        } catch (IOException e) { e.printStackTrace();}
-
-        if(client != null) {
-            try {
-                out = new PrintWriter(client.getOutputStream(), true);
-            } catch (IOException e) { e.printStackTrace(); }
-        }
+    TCPClient() {
     }
 
+    void close() {
+        try {
+            out.close();
+            client.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    void connect(String ip, int port) {
+        try {
+            out = new PrintWriter(client.getOutputStream(), true);
+        } catch (IOException e) { e.printStackTrace(); }
+
+        try {
+            client = new Socket(ip, port);
+        } catch (IOException e) { e.printStackTrace(); }
+    }
     void send(String string) {
         out.println(string);
     }
