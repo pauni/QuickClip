@@ -18,6 +18,9 @@ import android.os.IBinder;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.Window;
 import android.webkit.URLUtil;
 import android.widget.Toast;
 
@@ -63,13 +66,16 @@ public class ClipboardManagingService extends Service {
         clipboardManager = (android.content.ClipboardManager) getSystemService(
                 Context.CLIPBOARD_SERVICE);
         context = getApplicationContext();
+        //start both changedListener and pcClipListener in separate threads
         Thread thread_clipChangedListener =  new Thread (new ClipChangedListener());
         thread_clipChangedListener.start();
-
         Thread thread_computerClipListener =  new Thread (new ComputerClipListener());
         thread_computerClipListener.start();
 
-        //check every 10 seconds if server from PC is still responding.
+        //a sticky notification which opens clipboard-history-dialog
+        createHistoryNotification();
+
+        //create a runnable here, which verifies the connection every 10 secs.
         Runnable testConnectivity = new Runnable() {
             @Override
             public void run() {
@@ -89,6 +95,73 @@ public class ClipboardManagingService extends Service {
         Log.d("Listener", "closed");
     }
 
+
+    private void createHistoryNotification() {
+        //Intent and pendingintent for notification action (which opens the clip-history dialog)
+        Intent notificationIntent = new Intent(this, ClipboardHistoryActivity.class);
+        //actnewtsk to run as an own act.
+        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0 ,notificationIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT); //one_shot pending intent would only work once
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
+                .setContentTitle("Clipboard history")
+                .setContentText("click to open clipboard history")
+                .setSmallIcon(R.color.transparent)
+                .setContentIntent(contentIntent);
+
+        Notification n = builder.build(); //make it sticky!
+        n.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
+        mNotifyMgr.notify(33, n);
+    }
+    private void createClipNotification(String clipComputer) {
+        //create bitmap as required for large icon
+        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),
+                R.drawable.ic_content_paste_white_36dp);
+
+        //need to do SetClipbord.ClipboardString (instead of extras..) need to rework
+        Intent setClip_intent = new Intent(context, SetClipboard.class);
+        PendingIntent setClip_pendingIntent = PendingIntent.getService(
+                context, 222, setClip_intent, PendingIntent.FLAG_ONE_SHOT);
+
+        mBuilder = new NotificationCompat.Builder(context)
+                .setContentTitle(getString(R.string.new_clipboard))
+                .setContentText(clipComputer)
+                .setLargeIcon(bitmap)
+                .setSmallIcon(R.drawable.ic_notification)
+                .setColor(getResources().getColor(R.color.colorPrimary))
+                .setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_SOUND)
+                .setVibrate(null)
+                .setPriority(Notification.PRIORITY_HIGH)
+                .addAction(R.drawable.ic_content_copy_black_24dp,
+                        getString(R.string.copy), setClip_pendingIntent);
+        addOpenActionIfNeeded(clipComputer);
+
+        mNotifyMgr.notify(NEWCLIP_ID, mBuilder.build());
+    }
+    private void addOpenActionIfNeeded(String clip) {
+        url = clip;
+
+        if ( URLUtil.isValidUrl(url) ) {
+            Intent openUrl_intent = new Intent(context, OpenURLService.class);
+            PendingIntent openUrl_pendingIntent = PendingIntent.getService(
+                    context, 333, openUrl_intent, PendingIntent.FLAG_ONE_SHOT);
+
+            mBuilder.addAction(R.drawable.ic_open_in_browser_black_24dp,
+                    getString(R.string.open), openUrl_pendingIntent);
+            FLAG++;
+        }
+        else if (isWebAddress(url)) {
+            url = "http://" + url;
+            Intent openURL_intent = new Intent(context, OpenURLService.class);
+            PendingIntent openUrl_pendingIntent = PendingIntent.getService(
+                    context, 222, openURL_intent, PendingIntent.FLAG_ONE_SHOT);
+
+            mBuilder.addAction(R.drawable.ic_open_in_browser_black_24dp,
+                    getString(R.string.open), openUrl_pendingIntent);
+            FLAG++;
+        }
+    }
 
     //change the Runnable extending classes into "new runnable..."
     class ClipChangedListener implements Runnable {
@@ -137,9 +210,6 @@ public class ClipboardManagingService extends Service {
             return dateFormat.format(calender.getTime());
         }
     }
-
-
-
     class ComputerClipListener implements Runnable {
         TCPServer tcpServer = new TCPServer(SERVER_PORT);
         QuickClipProtocol quickClipProtocol = new QuickClipProtocol(getApplicationContext());
@@ -171,54 +241,7 @@ public class ClipboardManagingService extends Service {
         }
     }
 
-    private void createClipNotification(String clipComputer) {
-        //create bitmap as required for large icon
-        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),
-                R.drawable.ic_content_paste_white_36dp);
 
-        //need to do SetClipbord.ClipboardString (instead of extras..) need to rework
-        Intent setClip_intent = new Intent(context, SetClipboard.class);
-        PendingIntent setClip_pendingIntent = PendingIntent.getService(
-                context, 222, setClip_intent, PendingIntent.FLAG_ONE_SHOT);
-
-        mBuilder = new NotificationCompat.Builder(context)
-                .setContentTitle(getString(R.string.new_clipboard))
-                .setContentText(clipComputer)
-                .setSmallIcon(R.drawable.ic_notification)
-                .setLargeIcon(bitmap)
-                .setColor(getResources().getColor(R.color.colorPrimary))
-                .setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_SOUND)
-                .setVibrate(null)
-                .setPriority(Notification.PRIORITY_HIGH)
-                .addAction(R.drawable.ic_content_copy_black_24dp,
-                        getString(R.string.copy), setClip_pendingIntent);
-        addOpenActionIfNeeded(clipComputer);
-
-        mNotifyMgr.notify(NEWCLIP_ID, mBuilder.build());
-    }
-    void addOpenActionIfNeeded(String clip) {
-        url = clip;
-
-        if ( URLUtil.isValidUrl(url) ) {
-            Intent openUrl_intent = new Intent(context, OpenURLService.class);
-            PendingIntent openUrl_pendingIntent = PendingIntent.getService(
-                    context, 333, openUrl_intent, PendingIntent.FLAG_ONE_SHOT);
-
-            mBuilder.addAction(R.drawable.ic_open_in_browser_black_24dp,
-                    getString(R.string.open), openUrl_pendingIntent);
-            FLAG++;
-        }
-        else if (isWebAddress(url)) {
-            url = "http://" + url;
-            Intent openURL_intent = new Intent(context, OpenURLService.class);
-            PendingIntent openUrl_pendingIntent = PendingIntent.getService(
-                    context, 222, openURL_intent, PendingIntent.FLAG_ONE_SHOT);
-
-            mBuilder.addAction(R.drawable.ic_open_in_browser_black_24dp,
-                    getString(R.string.open), openUrl_pendingIntent);
-            FLAG++;
-        }
-    }
 
     private boolean isWebAddress(String string) {
         if (string.length() < 7) {

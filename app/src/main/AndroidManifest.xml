@@ -13,17 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">    
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ClipboardHistoryActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="pauni.quickclip.MainActivity" />
-
+        <activity android:name=".ClipboardHistoryActivity"
+            android:theme="@style/history_dialog"
+            android:excludeFromRecents="true">
         </activity>
         <service
             android:name="pauni.quickclip.ClipboardManagingService"

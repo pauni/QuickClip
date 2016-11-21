@@ -1,18 +1,25 @@
 package pauni.quickclip;
 
+import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.support.annotation.UiThread;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -20,6 +27,8 @@ import java.math.BigInteger;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.ByteOrder;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     EditText eT_pincode;
     Context context;
     static boolean notificationsEnabled = true;
-
     Intent backgroundService;
 
     @Override
@@ -84,9 +92,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void test(View v) {
+
+        finish();
+        /*
         Intent intent = new Intent(this, ClipboardHistoryActivity.class);
-        startActivity(intent);
-    }
+        startActivity(intent); */
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     private String getIpAddress() {

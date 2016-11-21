@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#009d5e</color>
-    <color name="colorPrimaryDark">#00673e</color>
-    <color name="colorAccent">#e3028383</color>
+    <color name="colorPrimary">#2a5154</color>
+    <color name="colorPrimaryDark">#183639</color>
+    <color name="colorAccent">#2a7e7d</color>
 
     <color name="nicedark">#f2f2f2</color>
 
     <color name="white">#FFFFFF</color>
     <color name="red">#d14141</color>
-    <color name="red_bright">#75ff3939</color>
-    <color name="green">#56c659</color>
+    <color name="red_bright">#ff4b40</color>
+    <color name="green">#57b459</color>
+    <color name="green_light">#dffeff</color>
+
+    <color name="semi_transparent_dark">#dcd7d7d7</color>
+    <color name="semi_transparent_light">#1b1b1b</color>
 
     <color name="fontColor">#424242</color>
     <color name="devider_dark">#bfbfbf</color>
-    <color name="ListView_background">#e6e6e6</color>
+    <color name="ListView_background">#e7e4e4</color>
     <color name="gehtsnoch">#242424</color>
     <color name="gehtsnochhell">#5d5d5d</color>
     <color name="transparent">#00000000</color>
