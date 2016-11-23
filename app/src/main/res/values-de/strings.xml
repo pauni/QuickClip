@@ -8,6 +8,7 @@
     <string name="pin_code">PIN-Code</string>
     <string name="ip4_address">IP4 Adresse:</string>
     <string name="no_network">Wlan-Verbindung erforderlich</string>
+    <string name="no_wlan">WLAN ist ausgeschaltet</string>
 
     <string name="no_record">NOCH KEINE ZWISCHENABLAGEN GESPEICHERT \n ZUKÜNFTIGE ZWISCHENABLAGEN WERDEN HIER GELISTET WERDEN</string>
 

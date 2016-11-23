@@ -8,6 +8,7 @@
     <string name="pin_code">PIN-code</string>
     <string name="ip4_address">IP4 address:</string>
     <string name="no_network">network required</string>
+    <string name="no_wlan">WLAN is off</string>
 
     <string name="no_record">NO CLIPBOARDS SAVED YET \n YOUR FUTURE CLIPBOARDS WILL BE LISTED HERE</string>
 

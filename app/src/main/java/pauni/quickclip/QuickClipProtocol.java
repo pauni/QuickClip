@@ -16,7 +16,7 @@ import java.util.Objects;
 class QuickClipProtocol {
     static String computerClip;
     private static String clip = "";
-    private final String CLIPBOARD_FLAG = "CB";
+    static final String CLIPBOARD_FLAG = "CB";
     private final String AUTHENTICATION_REQUEST_FLAG = "AR";
     Context context;
     QuickClipProtocol(Context context) {
@@ -52,7 +52,7 @@ class QuickClipProtocol {
         return output;
     }
 
-    String sendClip(String clip) {
+    static  String prepareClip(String clip) {
         //returning String in format required by QuickClipProtocol
         return CLIPBOARD_FLAG + MainActivity.pinCodePhone + clip;
 

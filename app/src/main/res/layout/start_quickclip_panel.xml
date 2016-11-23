@@ -6,8 +6,7 @@
     android:layout_height="wrap_content"
     card_viewSET:cardElevation="2dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_viewSET="http://schemas.android.com/apk/res-auto"
-    android:layout_marginBottom="50dp">
+    xmlns:card_viewSET="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -25,8 +24,8 @@
             android:adjustViewBounds="true"
             android:maxHeight="44dp"
             android:layout_centerVertical="true"
-            android:layout_marginBottom="7dp"
-            android:layout_marginTop="7dp" />
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp" />
 
         <Switch
             android:id="@+id/switch_onOff"

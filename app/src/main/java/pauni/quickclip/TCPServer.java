@@ -18,13 +18,12 @@ import java.util.Objects;
  * Created by Roni on 04.10.2016.
  */
 public class TCPServer {
-    static ServerSocket server;
-    static Socket client;
+    private static ServerSocket server;
+    private static Socket client;
     private BufferedReader in;
     private PrintWriter out;
-    private String inputLine;
     private int portNumb;
-    static  String IP_ADDRESS = null;
+    private static  String IP_ADDRESS = null;
 
     TCPServer(int portNumb) {
         //init the portNumb of the class with the param
@@ -76,7 +75,7 @@ public class TCPServer {
 
 
     String getInputLine() {
-        inputLine = null;
+        String inputLine = null;
         try {
             while (Objects.equals(inputLine, "") || inputLine == null) {
                 inputLine = in.readLine();
@@ -116,15 +115,4 @@ public class TCPServer {
         } catch (IOException e) { e.printStackTrace(); }
     }
 
-    private class DisplayToast implements Runnable {
-        private final Context mContext;
-        String mText;
-        public DisplayToast(Context mContext, String text){
-            this.mContext = mContext;
-            mText = text;
-        }
-        public void run(){
-            Toast.makeText(mContext, mText, Toast.LENGTH_SHORT).show();
-        }
-    }
 }

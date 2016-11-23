@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.Handler;
 import android.support.annotation.UiThread;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,14 +34,19 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     static String pinCodePhone;
+
+    EditText eT_pincode;
     TextView textView_ipAddress = null;
     TextView tv_notify_expl = null;
     Switch switch_onOff = null;
     Switch switch_notification = null;
-    EditText eT_pincode;
+
     Context context;
-    static boolean notificationsEnabled = true;
     Intent backgroundService;
+    Handler handler;
+
+    private boolean quickClipRunning = false;
+    static boolean notificationsEnabled = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,14 +55,34 @@ public class MainActivity extends AppCompatActivity {
         //set the layout-xml-file which should be displayed
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        handler = new Handler();
         //init stuff here for class-wide access
         initializeAllViews();
         regAllListeners();
-        print(textView_ipAddress, getIpAddress(), getResources().getColor(R.color.fontColor));
 
         backgroundService = new Intent(context, ClipboardManagingService.class);
 
+        Runnable testConnectivity = new Runnable() {
+            @Override
+            public void run() {
+                if (!quickClipRunning) {
+                    switch (getNetworkState()) {
+                        case 1:
+                            print(textView_ipAddress, getString(R.string.no_wlan), getResources().getColor(R.color.red_bright));
+                            break;
+                        case 2:
+                            print(textView_ipAddress, getString(R.string.no_network), getResources().getColor(R.color.red_bright));
+                            break;
+                        case 3:
+                            print(textView_ipAddress, getIpAddress(), getResources().getColor(R.color.fontColor));
+                            break;
+                    }
+                }
+                handler.postDelayed(this, 1000);
+            }
+        };
+
+        handler.post(testConnectivity);
     }
 
     private void regAllListeners() {
@@ -79,11 +105,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
+                    quickClipRunning = true;
                     pinCodePhone = eT_pincode.getText().toString(); //save the entered pin
                     eT_pincode.setText(""); //reset password_editText
                     startService(backgroundService); //start Server and clipListener and
                     print(textView_ipAddress, getIpAddress(), getResources().getColor(R.color.green) );
                 } else {
+                    quickClipRunning = false;
                     stopService(backgroundService);
                     print(textView_ipAddress, null, getResources().getColor(R.color.fontColor) );
                 }
@@ -99,18 +127,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent); */
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -149,15 +165,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void print(TextView tv, String text, int color) {
-        Log.d("print", "1");
             if (!Objects.equals(text, "") && text != null) {
                 tv.setText(text);
-        }
-        Log.d("print", "2");
+            }
             if (color != 0) {
                 tv.setTextColor(color);
             }
-
+        Log.d("MainActivity", "wlan status updated");
     }
 
     private void initializeAllViews() {

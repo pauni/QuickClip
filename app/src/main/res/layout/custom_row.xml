@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_delete_black_36dp"
+                android:src="@drawable/ic_delete_black_24dp"
                 android:longClickable="true"
                 android:clickable="true"
                 android:paddingBottom="6dp"

@@ -26,14 +26,23 @@ class TCPClient {
             e.printStackTrace();
         }
     }
-    void connect(String ip, int port) {
+    boolean connect(String ip, int port) {
+        if (ip != null) {
         try {
             out = new PrintWriter(client.getOutputStream(), true);
-        } catch (IOException e) { e.printStackTrace(); }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false; }
 
         try {
             client = new Socket(ip, port);
-        } catch (IOException e) { e.printStackTrace(); }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;}
+        //do some connection testing here
+        return true;
+        }
+        return false;
     }
     void send(String string) {
         out.println(string);

@@ -18,7 +18,7 @@ public class OpenURLService extends Service {
     String url;
     @Override
     public void onCreate() {
-        url = ClipboardManagingService.getUrl();
+        url = ComputerClipListener.getUrl();
 
     }
 
