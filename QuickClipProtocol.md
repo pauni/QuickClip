@@ -65,7 +65,7 @@ Actions
 
 The Json snippets are the content of the `data` field.
 
-_This list is __not__ complete_
+__This list is NOT complete__
 
 `sendclip`:
 
