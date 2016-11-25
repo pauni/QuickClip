@@ -2,6 +2,9 @@ QuickClip
 =========
 Share your clipboard with your android device. Yay hehe :3
 
+QuickClip uses its own [QCProtocol](https://github.com/QuickClip-Team/QuickClip/blob/master/QuickClipProtocol.md).
+
+
 What is QuickClip?
 ==================
 
