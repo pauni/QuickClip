@@ -74,8 +74,19 @@ Sending a clip to an other device e.g.:
 ```JSON
 {
   "clip": "this is the message i want to send",
+  "md5": "92906990eb98b20c8894597417870e09",
   "mime": "text/plain"
 }
 ```
 The mimetype is given to provide special actions for the user. E.g. `text/x-url`: a link to a website.
 Maybe it is also possible to send binary data. To send a jpeg we would set the mimetype to `image/jpeg`. The reciever could provide now a function like "save image to gallery".
+
+---
+
+More actions will follow.
+Here are some ideas:
+
+- `pinexchange`: share the pin to allow easy setup for a bidirectional clipboard sharing.
+- `stillalive`: check if the server is runnig without problem.
+- `wipe`: wipe the last clipboard including the history to increase privacy
+- `getclip`: get the clip  from the server (if "instantsend" is disabled)
