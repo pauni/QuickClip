@@ -79,7 +79,7 @@ Sending a clip to an other device e.g.:
 }
 ```
 The mimetype is given to provide special actions for the user. E.g. `text/x-url`: a link to a website.
-Maybe it is also possible to send binary data. To send a jpeg we would set the mimetype to `image/jpeg`. The reciever could provide now a function like "save image to gallery".
+Maybe it is also possible to send binary data. To send a jpeg we would set the mimetype to `image/jpeg`. The reciever could provide now a function like "save image to gallery". Binary data must be Base64 encoded.
 
 ---
 
